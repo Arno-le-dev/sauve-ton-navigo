@@ -1,0 +1,10 @@
+INSERT INTO users (id, first_name, last_name, email, admin) VALUES (1, 'Arno', 'Bruno', 'arno.bruno@epfedu.fr', true);
+INSERT INTO users (id, first_name, last_name, email, admin) VALUES (2, 'Juliette', 'Crespo', 'juliette.crespo@epfedu.fr',true);
+INSERT INTO users (id, first_name, last_name, email, admin) VALUES (3, 'Laura', 'Zablit', 'laura.zablit@epfedu.fr',false);
+INSERT INTO users (id, first_name, last_name, email, admin) VALUES (4, 'Marion', 'Chineaud', 'marion.chineaud@epfedu.fr',false);
+INSERT INTO station (id, numero_ligne, nom, nbr_controlleurs, nbr_sortie) VALUES (1, 1, 'Chatelet', 2,4);
+INSERT INTO station (id, numero_ligne, nom, nbr_controlleurs, nbr_sortie) VALUES (2, 4, 'Bagneux', 3,6);
+INSERT INTO station (id, numero_ligne, nom, nbr_controlleurs, nbr_sortie) VALUES (3, 14, 'BFM', 1,7);
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (1, '2023-10-10', '09:10:10', 2,1,'Mechant','QUAI','dommage ' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (2, '2023-10-9', '14:30:00', 2,2,'Gentil','SORTIE1','ca passe oklm' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (3, '2023-10-8', '15:18:19', 2,3,'Neutre','SORTIE2','la negociation etait compliqué' );

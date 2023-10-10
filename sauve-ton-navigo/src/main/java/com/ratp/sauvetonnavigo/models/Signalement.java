@@ -28,7 +28,7 @@ public class Signalement {
     private LocalTime heure;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "station")
+    @JoinColumn(name = "station_id")
     private Station station;
 
     @Column(name = "nbr_controlleurs")
@@ -37,10 +37,11 @@ public class Signalement {
     @Column(name = "commentaire")
     private String commentaire;
 
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "humeur")
     private Humeur humeur;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "position_controlleurs")
     private Sorties position_controlleurs;
 
