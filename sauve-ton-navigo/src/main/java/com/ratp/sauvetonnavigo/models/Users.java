@@ -34,5 +34,38 @@ public class Users {
     }
     public Users(){
     }
+
+  /*  public static class Builder {
+        private Long id;
+        private String firstName;
+        private String lastName;
+        private String email;
+        private boolean admin;
+
+        public Builder id (Long id) {
+            this.id = id;
+            return this;
+        }
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
+        public Builder admin(Boolean admin) {
+            this.admin = admin;
+            return this;
+        }
+
+        public Users build() {
+            return new Users(this);
+        }
+    }*/
 }
 

@@ -46,15 +46,14 @@ public class Signalement {
     private Sorties position_controlleurs;
 
 
-    public Signalement(SignalementBuilder signalementBuilder) {
-        this.id = signalementBuilder.id;
-        this.date = signalementBuilder.date;
-        this.heure = signalementBuilder.heure;
-        this.station = signalementBuilder.station;
-        this.nbr_controlleurs = signalementBuilder.nbr_controlleurs;
-        this.commentaire = signalementBuilder.commentaire;
-        this.humeur = signalementBuilder.humeur;
-        this.position_controlleurs = signalementBuilder.position_controlleurs;
+    public Signalement(LocalDate date, LocalTime heure, Station station, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
+        this.date = date;
+        this.heure = heure;
+        this.station = station;
+        this.nbr_controlleurs = nbr_controlleurs;
+        this.commentaire = commentaire;
+        this.humeur = humeur;
+        this.position_controlleurs = position_controlleurs;
     }
 
 

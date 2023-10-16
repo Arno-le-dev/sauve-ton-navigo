@@ -3,10 +3,7 @@ package com.ratp.sauvetonnavigo.controllers;
 import com.ratp.sauvetonnavigo.models.Users;
 import com.ratp.sauvetonnavigo.services.UsersService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +18,15 @@ public class UsersControllers {
     public List<Users> getAllUsers() {
         return usersServices.findAll();
     }
+
+    @GetMapping("/{id}")
+    public Users getUses(@PathVariable Long id ){
+        return usersServices.findByID(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUsers(@PathVariable Long id) {
+        usersServices.deleteById(id);
+    }
+
 }
