@@ -36,11 +36,18 @@ public class SignalementControllers {
         return signalementServices.findByDay(jour);
     }
 
+    @GetMapping("getAllHours")
+    public List<Signalement> getAllSignalementsByHours( LocalTime heure) {
+        return signalementServices.findByHour(heure);
+    }
     @GetMapping("getAllStationAndDay")
     public List<Signalement> getAllSignalementsStation(Long id, LocalDate jour) {
         return signalementServices.findByStationAndDay(id, jour);
     }
 
+    @GetMapping("getAllLigne/{num_ligne}")
+    public List<Signalement> getAllLigne(@PathVariable int num_ligne) {
+        return signalementServices.findByLigne(num_ligne);}
     @GetMapping("/{id}")
     public Signalement getSignalement(@PathVariable Long id ){
         return signalementServices.findByID(id);

@@ -26,6 +26,8 @@ public class SignalementService {
     private final SignalementDAO signalementDao;
     private final StationDAO stationDao;
 
+    private final StationService stationService;
+
 
     @Transactional
     public void addSignalement( LocalDate date, LocalTime heure, Long station_id, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
@@ -72,6 +74,20 @@ public class SignalementService {
         return signalementsByStations;
     }
 
+    public List<Signalement> findByLigne(int num_ligne){
+        List<Station> stations = stationService.findAllLigne(num_ligne);
+        List<Signalement> signalements = signalementDao.findAll();
+        List<Signalement> signalementsByLignes = new ArrayList<>() ;
+        for(int i =0; i<signalements.size(); i++){
+            for(int j =0; j<stations.size(); j++){
+                if(signalements.get(i).getStation().getId() == stations.get(j).getId() ){
+                    signalementsByLignes.add(signalements.get(i));
+                }
+            }
+        }
+        return signalementsByLignes;
+    }
+
     public List<Signalement> lebonJour(LocalDate jour, List<Signalement> signalements){
         List<Signalement> signalementsByStations = new ArrayList<>() ;
         for(int i =0; i<signalements.size(); i++){
@@ -82,10 +98,32 @@ public class SignalementService {
         return signalementsByStations;
     }
 
+    public List<Signalement> getByHeure(LocalTime heure, List<Signalement> signalements){
+        List<Signalement> signalementsByHeures = new ArrayList<>() ;
+        for(int i =0; i<signalements.size(); i++){
+            if(signalements.get(i).getHeure().equals(heure) ){
+                signalementsByHeures.add(signalements.get(i));
+            }
+        }
+        return signalementsByHeures;
+    }
+
     public List<Signalement> findByStationAndDay(Long id_station, LocalDate jour){
         List<Signalement> signalementsStation = findByStation(id_station);
         List<Signalement> signalementsStationDay = lebonJour( jour, signalementsStation);
         return signalementsStationDay;
+    }
+
+    public List<Signalement> findByStationAndDay(Long id_station, LocalTime heure){
+        List<Signalement> signalementsStation = findByStation(id_station);
+        List<Signalement> signalementsStationDay = getByHeure( heure, signalementsStation);
+        return signalementsStationDay;
+    }
+
+    public List<Signalement> findByHour( LocalTime heure){
+        List<Signalement> signalements = findAll();
+        List<Signalement> signalementsDay = getByHeure( heure, signalements);
+        return signalementsDay;
     }
 
     public List<Signalement> findByDay( LocalDate jour){

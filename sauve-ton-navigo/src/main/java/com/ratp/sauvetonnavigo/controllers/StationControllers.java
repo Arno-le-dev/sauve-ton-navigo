@@ -1,11 +1,16 @@
 package com.ratp.sauvetonnavigo.controllers;
 
+import com.ratp.sauvetonnavigo.DTO.StationDto;
 import com.ratp.sauvetonnavigo.models.Signalement;
 import com.ratp.sauvetonnavigo.models.Station;
 import com.ratp.sauvetonnavigo.services.StationService;
+import com.ratp.sauvetonnavigo.utils.Humeur;
+import com.ratp.sauvetonnavigo.utils.Sorties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @CrossOrigin
@@ -31,5 +36,19 @@ public class StationControllers {
     @GetMapping("/{id}")
     public Station getStation(@PathVariable Long id ){
         return stationService.findByID(id);
+    }
+
+    @PostMapping("")
+    public void addStation(StationDto stationDto){
+        stationService.addStation( stationDto);
+    }
+    @PostMapping("/update")
+    public void updateStation(Long id, StationDto stationDto) {
+        stationService.updateStation(stationDto, id);
+     }
+
+    @DeleteMapping("/{id}")
+    public void deleteSignalement(@PathVariable Long id) {
+        stationService.deleteById(id);
     }
 }

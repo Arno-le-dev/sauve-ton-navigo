@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsersDAO extends JpaRepository<Users, Long> {
+
+
 }
 
 
