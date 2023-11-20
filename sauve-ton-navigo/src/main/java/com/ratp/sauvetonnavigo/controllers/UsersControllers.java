@@ -36,8 +36,8 @@ public class UsersControllers {
         return usersServices.findByEmail(email);
     }
 
-    @PostMapping("")
-    public void addUser(UsersDto userDto){
+    @PostMapping
+    public void addUser(@RequestBody UsersDto userDto){
         usersServices.addUser(userDto);
     }
     @PostMapping("/update")
