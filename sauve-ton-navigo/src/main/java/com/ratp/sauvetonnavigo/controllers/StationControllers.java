@@ -38,6 +38,11 @@ public class StationControllers {
         return stationService.findByID(id);
     }
 
+    @GetMapping("getNbrSortie/{id}")
+    public Integer getNbrSortie(@PathVariable Long id ){
+        return stationService.findByID(id).getNbr_sortie();
+    }
+
     @PostMapping("")
     public void addStation(StationDto stationDto){
         stationService.addStation( stationDto);

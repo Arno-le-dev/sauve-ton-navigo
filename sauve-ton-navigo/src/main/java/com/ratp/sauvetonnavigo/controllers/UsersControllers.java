@@ -25,6 +25,7 @@ public class UsersControllers {
     public List<Users> getAllAdmin() {
         return usersServices.getAllAdmin();
     }
+
     @GetMapping("/{id}")
     public Users getUses(@PathVariable Long id ){
         return usersServices.findByID(id);
