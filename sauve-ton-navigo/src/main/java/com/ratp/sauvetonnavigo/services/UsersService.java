@@ -1,5 +1,6 @@
 package com.ratp.sauvetonnavigo.services;
 
+import com.ratp.sauvetonnavigo.Config.Exception.EmailUnicityException;
 import com.ratp.sauvetonnavigo.DAO.UsersDAO;
 import com.ratp.sauvetonnavigo.DTO.UsersDto;
 import com.ratp.sauvetonnavigo.DTO.UsersMapper;
@@ -8,6 +9,7 @@ import com.ratp.sauvetonnavigo.models.Users;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -29,12 +31,12 @@ public class UsersService {
     public Users findByEmail(String email) {
             List<Users> users = usersDao.findAll() ;
             Users user = new Users();
-            for(int i =0; i<users.size(); i++){
-                if(users.get(i).getEmail().equals(email) ){
-                    user = users.get(i);
-                    break;
-                }
+        for (Users value : users) {
+            if (value.getEmail().equals(email)) {
+                user = value;
+                break;
             }
+        }
         return user;}
 
     public List<Users> getAllAdmin() {
@@ -54,14 +56,10 @@ public class UsersService {
     }
 
     @Transactional
-    public void addUser(UsersDto userDto) {
-        Users user;
-        try {
-            user = UsersMapper.fromDto(userDto, null);
-        } catch (IOException e) {
-            throw new RuntimeException("Error with Student image", e);
-        }
+    public void addUser(@RequestBody UsersDto userDto) throws EmailUnicityException {
+        if ( usersDao.existsByEmail(userDto.getEmail())) throw new EmailUnicityException("Cette adresse mail est déjà utilisée.");
 
+        Users user = UsersMapper.fromDto(userDto, null);
         usersDao.save(user);
     }
 
@@ -69,12 +67,7 @@ public class UsersService {
     public void updateUser(UsersDto usersDto, Long id) {
         usersDao.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User doesn't exist"));
-        Users user;
-        try {
-            user = UsersMapper.fromDto(usersDto, id);
-        } catch (IOException e) {
-            throw new RuntimeException("Error with Student image", e);
-        }
+        Users user = UsersMapper.fromDto(usersDto, id);
         usersDao.save(user);
     }
 

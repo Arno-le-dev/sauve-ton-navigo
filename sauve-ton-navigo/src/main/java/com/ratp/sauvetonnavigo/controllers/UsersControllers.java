@@ -1,18 +1,21 @@
 package com.ratp.sauvetonnavigo.controllers;
 
+import com.ratp.sauvetonnavigo.Config.Exception.EmailUnicityException;
 import com.ratp.sauvetonnavigo.DTO.StationDto;
 import com.ratp.sauvetonnavigo.DTO.UsersDto;
 import com.ratp.sauvetonnavigo.models.Users;
 import com.ratp.sauvetonnavigo.services.UsersService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin
-@RequestMapping("users/")
+@RequestMapping("users")
 @RestController
 @RequiredArgsConstructor
+@Validated
 public class UsersControllers {
     private final UsersService usersServices;
 
@@ -37,7 +40,7 @@ public class UsersControllers {
     }
 
     @PostMapping
-    public void addUser(@RequestBody UsersDto userDto){
+    public void addUser(@RequestBody UsersDto userDto) throws EmailUnicityException {
         usersServices.addUser(userDto);
     }
     @PostMapping("/update")

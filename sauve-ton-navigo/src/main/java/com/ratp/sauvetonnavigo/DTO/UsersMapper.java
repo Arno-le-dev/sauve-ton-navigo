@@ -6,7 +6,7 @@ import lombok.Builder;
 import java.io.IOException;
 
 public class UsersMapper {
-        public static Users fromDto(UsersDto dto, Long id) throws IOException {
+        public static Users fromDto(UsersDto dto, Long id) {
         return Users.builder()
                 .id(id)
                 .firstName(dto.getFirstName())
