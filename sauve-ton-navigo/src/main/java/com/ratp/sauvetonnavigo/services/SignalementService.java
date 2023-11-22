@@ -31,7 +31,12 @@ public class SignalementService {
 
     @Transactional
     public void addSignalement( LocalDate date, LocalTime heure, Long station_id, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
-        Station station = stationDao.findById(station_id).orElseThrow(() -> new NoSuchElementException("Station doesn't exist"));;
+        Station station = stationDao.findById(station_id)
+                .orElseThrow(() -> new NoSuchElementException("Station doesn't exist"));
+    /*    Station station = Station.builder()
+                .id(20L)
+                .nom("par default")
+                .build();*/
         Signalement signalement = new Signalement( date, heure, station,nbr_controlleurs, commentaire, humeur, position_controlleurs);
         signalementDao.save(signalement);
     }
@@ -39,13 +44,11 @@ public class SignalementService {
     public void updateSignalement(Long id, LocalDate date, LocalTime heure, Long station_id, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
         Optional<Signalement> signalementOptional = signalementDao.findById(id);
         Signalement signalement = signalementOptional.orElseThrow(() -> new NoSuchElementException("Signalement doesn't exist"));
-        Station station ;
+        Station station = signalement.getStation();;
         if(date==null){
             date = signalement.getDate();
         }if(heure==null){
             heure = signalement.getHeure();
-        }if(station_id ==null){
-            station = signalement.getStation();
         }if(station_id != null){
             station = stationDao.findById(station_id).orElseThrow(() -> new NoSuchElementException("Station doesn't exist"));;
         } if(nbr_controlleurs==null){
@@ -57,7 +60,8 @@ public class SignalementService {
         }if(position_controlleurs==null) {
             position_controlleurs = signalement.getPosition_controlleurs();
         }
-        signalementDao.save(signalement);
+        Signalement newSignalement = new Signalement( id, date, heure, station, nbr_controlleurs, commentaire,humeur,position_controlleurs);
+        signalementDao.save(newSignalement);
     }
     @Transactional
     public void deleteById(Long id) {

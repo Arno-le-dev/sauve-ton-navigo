@@ -54,12 +54,13 @@ public class SignalementControllers {
     }
 
     @PostMapping("")
-    public void addSignalement(LocalDate date, LocalTime heure, Long station_id, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs){
-    signalementServices.addSignalement( date, heure, station_id, nbr_controlleurs, commentaire, humeur,  position_controlleurs);
+    public void addSignalement(@RequestBody Signalement signalement){
+            signalementServices.addSignalement( signalement.getDate(), signalement.getHeure(), signalement.getStation().getId(), signalement.getNbr_controlleurs(), signalement.getCommentaire(), signalement.getHumeur() , signalement.getPosition_controlleurs()  );
     }
-    @PostMapping("/update")
-    public void updateSignalement( Long id, LocalDate date, LocalTime heure, Long station_id, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
-        signalementServices.updateSignalement(id, date, heure, station_id, nbr_controlleurs, commentaire, humeur, position_controlleurs);
+    @PostMapping("/update/{id}")
+    public Signalement updateSignalement(@PathVariable Long id, @RequestBody Signalement signalement) {
+        signalementServices.updateSignalement(id,  signalement.getDate(), signalement.getHeure(), signalement.getStation().getId(), signalement.getNbr_controlleurs(), signalement.getCommentaire(), signalement.getHumeur() , signalement.getPosition_controlleurs());
+        return signalementServices.findByID(id);
     }
 
 
