@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +28,8 @@ public class SignalementService {
 
     @Transactional
     public void addSignalement( LocalDate date, LocalTime heure, Long station_id, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
-        Station station = stationDao.findById(station_id).orElseThrow(() -> new NoSuchElementException("Station doesn't exist"));;
+        Station station = stationDao.findById(station_id)
+                .orElseThrow(() -> new NoSuchElementException("Station doesn't exist"));
         Signalement signalement = new Signalement( date, heure, station,nbr_controlleurs, commentaire, humeur, position_controlleurs);
         signalementDao.save(signalement);
     }
@@ -39,13 +37,11 @@ public class SignalementService {
     public void updateSignalement(Long id, LocalDate date, LocalTime heure, Long station_id, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
         Optional<Signalement> signalementOptional = signalementDao.findById(id);
         Signalement signalement = signalementOptional.orElseThrow(() -> new NoSuchElementException("Signalement doesn't exist"));
-        Station station ;
+        Station station = signalement.getStation();;
         if(date==null){
             date = signalement.getDate();
         }if(heure==null){
             heure = signalement.getHeure();
-        }if(station_id ==null){
-            station = signalement.getStation();
         }if(station_id != null){
             station = stationDao.findById(station_id).orElseThrow(() -> new NoSuchElementException("Station doesn't exist"));;
         } if(nbr_controlleurs==null){
@@ -57,7 +53,8 @@ public class SignalementService {
         }if(position_controlleurs==null) {
             position_controlleurs = signalement.getPosition_controlleurs();
         }
-        signalementDao.save(signalement);
+        Signalement newSignalement = new Signalement( id, date, heure, station, nbr_controlleurs, commentaire,humeur,position_controlleurs);
+        signalementDao.save(newSignalement);
     }
     @Transactional
     public void deleteById(Long id) {
@@ -136,6 +133,19 @@ public class SignalementService {
 
     public List<Signalement> findAll() {
         return signalementDao.findAll();
+    }
+
+    public List<Signalement> findAllOrderByday(int debut) {
+        List<Signalement> signalements = findAll();
+        Collections.sort(signalements, Comparator.comparing(Signalement::getDate, Comparator.nullsLast(Comparator.reverseOrder())));
+        int size = Math.min(signalements.size(), debut+5);
+        return signalements.subList(debut, size);
+    }
+
+    public List<Signalement> findAllOrderByday() {
+        List<Signalement> signalements = findAll();
+        Collections.sort(signalements, Comparator.comparing(Signalement::getDate, Comparator.nullsLast(Comparator.reverseOrder())));
+        return signalements;
     }
 
     public Signalement findByID(Long id) {return signalementDao.findById(id).orElseThrow();}
