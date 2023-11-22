@@ -48,6 +48,11 @@ public class SignalementControllers {
         LocalDate jour = LocalDate.parse(jourString, formatter);
         return signalementServices.findAllStatStationPlusControlByDay(jour);
     }
+
+    @GetMapping("findStatStationMois/{mois}")
+    public List<Station> findAllStatStationPlusControlByMonth(@PathVariable int mois) {
+        return signalementServices.findAllStatStationPlusControlByMonth(mois);
+    }
     @GetMapping("getAllDay")
     public List<Signalement> getAllSignalementsByDay( LocalDate jour) {
         return signalementServices.findByDay(jour);

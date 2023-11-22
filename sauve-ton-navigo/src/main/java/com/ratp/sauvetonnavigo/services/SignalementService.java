@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -97,6 +98,16 @@ public class SignalementService {
         return signalementsByStations;
     }
 
+    public List<Signalement> lebonMois(int mois, List<Signalement> signalements){
+        List<Signalement> signalementsByStations = new ArrayList<>() ;
+        for(int i =0; i<signalements.size(); i++){
+            if(signalements.get(i).getDate().getMonthValue()==mois){
+                signalementsByStations.add(signalements.get(i));
+            }
+        }
+        return signalementsByStations;
+    }
+
     public List<Signalement> getByHeure(LocalTime heure, List<Signalement> signalements){
         List<Signalement> signalementsByHeures = new ArrayList<>() ;
         for(int i =0; i<signalements.size(); i++){
@@ -124,6 +135,24 @@ public class SignalementService {
                     nbrSignalement.add(numberOfSignalements);
                     return new StationWithSignalements(station, numberOfSignalements);
                     })
+                .sorted((s1, s2) -> Integer.compare(s2.getNumberOfSignalements(), s1.getNumberOfSignalements()))
+                .limit(3)
+                .map(StationWithSignalements::getStation)
+                .collect(Collectors.toList());
+        return top3Stations;
+    }
+
+    public List<Station> findAllStatStationPlusControlByMonth( int mois){
+        List<Station> stations = stationDao.findAll();
+        List<Integer> nbrSignalement = new ArrayList<Integer>();
+        List<Station> top3Stations = stations.stream()
+                .map(station -> {
+                    List<Signalement> signalementsStation = findByStation(station.getId());
+                    List<Signalement> signalementsStationDay = lebonMois( mois, signalementsStation);
+                    int numberOfSignalements = signalementsStationDay.size();
+                    nbrSignalement.add(numberOfSignalements);
+                    return new StationWithSignalements(station, numberOfSignalements);
+                })
                 .sorted((s1, s2) -> Integer.compare(s2.getNumberOfSignalements(), s1.getNumberOfSignalements()))
                 .limit(3)
                 .map(StationWithSignalements::getStation)
