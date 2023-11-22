@@ -64,7 +64,7 @@ public class UsersService {
     }
 
     @Transactional
-    public void updateUser(UsersDto usersDto, Long id) {
+    public void updateUser(@RequestBody UsersDto usersDto, Long id) {
         usersDao.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User doesn't exist"));
         Users user = UsersMapper.fromDto(usersDto, id);

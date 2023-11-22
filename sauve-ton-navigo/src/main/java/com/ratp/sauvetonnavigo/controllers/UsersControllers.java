@@ -43,8 +43,8 @@ public class UsersControllers {
     public void addUser(@RequestBody UsersDto userDto) throws EmailUnicityException {
         usersServices.addUser(userDto);
     }
-    @PostMapping("/update")
-    public void updateUser(Long id, UsersDto userDto) {
+    @PutMapping("/{id}")
+    public void updateUser(@PathVariable Long id, @RequestBody UsersDto userDto) {
         usersServices.updateUser(userDto, id);
     }
 
