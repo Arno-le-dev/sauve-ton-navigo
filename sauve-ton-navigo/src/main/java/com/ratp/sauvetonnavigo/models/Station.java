@@ -40,7 +40,9 @@ public class Station {
         this.nbr_sortie = stationBuilder.nbr_sortie;
     }
 
-
+    public Long getId() {
+        return id;
+    }
 
     public Station(){}
 

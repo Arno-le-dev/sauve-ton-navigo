@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 @CrossOrigin
 @RequestMapping("signalement")
@@ -21,6 +23,8 @@ import java.util.List;
 public class SignalementControllers {
 
     private final SignalementService signalementServices;
+
+
     @GetMapping("getAll")
     public List<Signalement> getAllSignalements() {
         return signalementServices.findAll();
@@ -34,14 +38,16 @@ public class SignalementControllers {
     public List<Signalement> findAllOrderByday() {
         return signalementServices.findAllOrderByday();
     }
-
-
-
     @GetMapping("getAllStation/{id}")
     public List<Signalement> getAllSignalementsStation(@PathVariable Long id) {
         return signalementServices.findByStation(id);
     }
-
+    @GetMapping("findStatStation/{jourString}")
+    public List<Station> findAllStatStationPlusControlByDay(@PathVariable String jourString) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate jour = LocalDate.parse(jourString, formatter);
+        return signalementServices.findAllStatStationPlusControlByDay(jour);
+    }
     @GetMapping("getAllDay")
     public List<Signalement> getAllSignalementsByDay( LocalDate jour) {
         return signalementServices.findByDay(jour);

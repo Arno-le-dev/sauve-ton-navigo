@@ -5,6 +5,7 @@ import com.ratp.sauvetonnavigo.DAO.SignalementDAO;
 import com.ratp.sauvetonnavigo.DAO.StationDAO;
 import com.ratp.sauvetonnavigo.models.Signalement;
 import com.ratp.sauvetonnavigo.models.Station;
+import com.ratp.sauvetonnavigo.models.StationWithSignalements;
 import com.ratp.sauvetonnavigo.utils.Humeur;
 import com.ratp.sauvetonnavigo.utils.Sorties;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -111,12 +113,22 @@ public class SignalementService {
         return signalementsStationDay;
     }
 
-
-
-    public List<Signalement> findByStationAndDay(Long id_station, LocalTime heure){
-        List<Signalement> signalementsStation = findByStation(id_station);
-        List<Signalement> signalementsStationDay = getByHeure( heure, signalementsStation);
-        return signalementsStationDay;
+    public List<Station> findAllStatStationPlusControlByDay( LocalDate jour){
+        List<Station> stations = stationDao.findAll();
+        List<Integer> nbrSignalement = new ArrayList<Integer>();
+        List<Station> top3Stations = stations.stream()
+                .map(station -> {
+                    List<Signalement> signalementsStation = findByStation(station.getId());
+                    List<Signalement> signalementsStationDay = lebonJour( jour, signalementsStation);
+                    int numberOfSignalements = signalementsStationDay.size();
+                    nbrSignalement.add(numberOfSignalements);
+                    return new StationWithSignalements(station, numberOfSignalements);
+                    })
+                .sorted((s1, s2) -> Integer.compare(s2.getNumberOfSignalements(), s1.getNumberOfSignalements()))
+                .limit(3)
+                .map(StationWithSignalements::getStation)
+                .collect(Collectors.toList());
+        return top3Stations;
     }
 
     public List<Signalement> findByHour( LocalTime heure){
