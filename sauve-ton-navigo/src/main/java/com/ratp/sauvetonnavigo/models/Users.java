@@ -36,6 +36,8 @@ public class Users {
     @NotBlank(message = "Le prénom est obligatoire.")
     private String email;
 
+    @Column(name = "mdp")
+    private String mdp;
     @Column(name = "admin")
     private Boolean admin;
 

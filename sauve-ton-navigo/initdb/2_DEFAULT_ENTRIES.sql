@@ -1,8 +1,8 @@
-INSERT INTO users (id, first_name, last_name, email, admin) VALUES (1, 'Arno', 'Bruno', 'arno.bruno@epfedu.fr', true);
-INSERT INTO users (id, first_name, last_name, email, admin) VALUES (2, 'Juliette', 'Crespo', 'juliette.crespo@epfedu.fr',true);
-INSERT INTO users (id, first_name, last_name, email, admin) VALUES (3, 'Aurélien', 'Bourliatoux', 'aurelien.bourliatoux@epfedu.fr',true);
-INSERT INTO users (id, first_name, last_name, email, admin) VALUES (4, 'Laura', 'Zablit', 'laura.zablit@epfedu.fr',false);
-INSERT INTO users (id, first_name, last_name, email, admin) VALUES (5, 'Marion', 'Chineaud', 'marion.chineaud@epfedu.fr',false);
+INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (1, 'Arno', 'Bruno', 'arno.bruno@epfedu.fr', 'ab', true);
+INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (2, 'Juliette', 'Crespo', 'juliette.crespo@epfedu.fr','jc', true);
+INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (3, 'Aurélien', 'Bourliatoux', 'aurelien.bourliatoux@epfedu.fr','ab', true);
+INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (4, 'Laura', 'Zablit', 'laura.zablit@epfedu.fr', 'lz', false);
+INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (5, 'Marion', 'Chineaud', 'marion.chineaud@epfedu.fr','mc',false);
 
 -- Ligne 1
 INSERT INTO station (id, numero_ligne, nom, nbr_controlleurs, nbr_sortie) VALUES

@@ -4,6 +4,7 @@ create table users
     first_name TEXT not null,
     last_name TEXT not null,
     email TEXT not null,
+    mdp TEXT not null,
     admin BOOLEAN not null
 );
 create table station
