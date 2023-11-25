@@ -12,6 +12,7 @@ public class UsersMapper {
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
+                .mdp(dto.getMdp())
                 .admin(dto.getAdmin())
                 .build();
     }
@@ -21,6 +22,7 @@ public class UsersMapper {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .mdp(user.getMdp())
                 .admin(user.getAdmin())
                 .build();
     }

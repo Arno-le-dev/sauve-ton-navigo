@@ -1,6 +1,8 @@
 package com.ratp.sauvetonnavigo.Config;
 
+import com.ratp.sauvetonnavigo.Config.Exception.EmailNotFondException;
 import com.ratp.sauvetonnavigo.Config.Exception.EmailUnicityException;
+import com.ratp.sauvetonnavigo.Config.Exception.MdpFauxException;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,16 @@ public class WebConfig  {
 
     @ExceptionHandler(EmailUnicityException.class)
     public ResponseEntity<Object> handleEmailNotUnique(EmailUnicityException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MdpFauxException.class)
+    public ResponseEntity<Object> handleMdpFaux(MdpFauxException ex, WebRequest request) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EmailNotFondException.class)
+    public ResponseEntity<Object> handleEmailNotFond(EmailNotFondException ex, WebRequest request) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

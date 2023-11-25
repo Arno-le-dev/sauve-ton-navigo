@@ -39,6 +39,11 @@ public class UsersControllers {
         return usersServices.findByEmail(email);
     }
 
+    @GetMapping("connexion/{email}/{mdp}")
+    public Users connexion( @PathVariable String email, @PathVariable String mdp ) throws Exception{
+        return usersServices.connexion(email, mdp);
+    }
+
     @PostMapping
     public void addUser(@RequestBody UsersDto userDto) throws EmailUnicityException {
         usersServices.addUser(userDto);

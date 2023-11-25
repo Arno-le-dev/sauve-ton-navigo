@@ -1,5 +1,6 @@
 package com.ratp.sauvetonnavigo.services;
 
+import com.ratp.sauvetonnavigo.Config.Exception.EmailNotFondException;
 import com.ratp.sauvetonnavigo.Config.Exception.EmailUnicityException;
 import com.ratp.sauvetonnavigo.DAO.UsersDAO;
 import com.ratp.sauvetonnavigo.DTO.UsersDto;
@@ -37,6 +38,26 @@ public class UsersService {
                 break;
             }
         }
+        return user;
+    }
+    public Users connexion(String email, String mdp) throws Exception {
+        List<Users> users = usersDao.findAll() ;
+        Users user = new Users();
+        Boolean trouve = false;
+            for (Users value : users) {
+                if (value.getEmail().equals(email)) {
+                    user = value;
+                    trouve = true;
+                    break;
+                }
+            }
+            if (trouve){
+                if(!user.getMdp().equals(mdp)){
+                    throw new EmailNotFondException("Mot de passe incorect");
+                }
+            }else{
+                throw new EmailNotFondException("Email introuvable");
+            }
         return user;}
 
     public List<Users> getAllAdmin() {

@@ -9,6 +9,8 @@ public class UsersDto {
     private String firstName;
     private String lastName;
     private String email;
+
+    private String mdp;
     private Boolean admin;
 }
 
