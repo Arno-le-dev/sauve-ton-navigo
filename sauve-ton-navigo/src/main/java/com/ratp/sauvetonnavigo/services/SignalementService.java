@@ -1,6 +1,7 @@
 package com.ratp.sauvetonnavigo.services;
 
 
+import ch.qos.logback.core.joran.sanity.Pair;
 import com.ratp.sauvetonnavigo.DAO.SignalementDAO;
 import com.ratp.sauvetonnavigo.DAO.StationDAO;
 import com.ratp.sauvetonnavigo.models.Signalement;
@@ -10,11 +11,8 @@ import com.ratp.sauvetonnavigo.utils.Humeur;
 import com.ratp.sauvetonnavigo.utils.Sorties;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -135,6 +133,7 @@ public class SignalementService {
                     nbrSignalement.add(numberOfSignalements);
                     return new StationWithSignalements(station, numberOfSignalements);
                     })
+                .filter(stationWithSignalements -> stationWithSignalements.getNumberOfSignalements() > 0)
                 .sorted((s1, s2) -> Integer.compare(s2.getNumberOfSignalements(), s1.getNumberOfSignalements()))
                 .limit(3)
                 .map(StationWithSignalements::getStation)
@@ -153,11 +152,53 @@ public class SignalementService {
                     nbrSignalement.add(numberOfSignalements);
                     return new StationWithSignalements(station, numberOfSignalements);
                 })
+                .filter(stationWithSignalements -> stationWithSignalements.getNumberOfSignalements() > 0)
                 .sorted((s1, s2) -> Integer.compare(s2.getNumberOfSignalements(), s1.getNumberOfSignalements()))
                 .limit(3)
                 .map(StationWithSignalements::getStation)
                 .collect(Collectors.toList());
         return top3Stations;
+    }
+
+    public List<Integer> findAllStatLingePlusControlByMonth( int mois){
+       /* List<Integer> lignes = new ArrayList<>();
+        for (int i = 1; i <= 14; i++) {
+            lignes.add(i);
+        }
+        List<Integer> nbrSignalement = new ArrayList<>();
+        List<Integer> top3Lignes = lignes.stream()
+                .map(ligne -> {
+                    List<Signalement> signalementsListe = findByLigne(ligne.intValue());
+                    List<Signalement> signalementsListeDay = lebonMois( mois, signalementsListe);
+                    int numberOfSignalements = signalementsListeDay.size();
+                    System.out.println("la ligne "+ligne + " a "+ numberOfSignalements);
+                    nbrSignalement.add(numberOfSignalements);
+                    return ligne;
+                })
+                .sorted(Comparator.comparingInt(ligne -> nbrSignalement.get(ligne-1)))
+                .limit(3)
+                .collect(Collectors.toList());
+        System.out.println("la liste final" + top3Lignes);
+        return top3Lignes;*/
+        List<Integer> lignes = new ArrayList<>();
+        List<Integer> nbrSignalement = new ArrayList<>();
+        List<Map.Entry<Integer, Integer>> ligneSignalementPairs = new ArrayList<>();
+        for (int i = 0; i < 14; i++) {
+            lignes.add(i+1);
+            List<Signalement> signalementsListe = findByLigne(lignes.get(i));
+            List<Signalement> signalementsListeDay = lebonMois( mois, signalementsListe);
+            nbrSignalement.add( signalementsListeDay.size());
+            ligneSignalementPairs.add(new AbstractMap.SimpleEntry<>(lignes.get(i), nbrSignalement.get(i)));
+        }
+        ligneSignalementPairs.removeIf(entry -> entry.getValue() == 0);
+        Collections.sort(ligneSignalementPairs, Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder()));
+
+        int topLinesCount = Math.min(5, ligneSignalementPairs.size());
+        lignes.clear();
+        for (int i = 0; i < topLinesCount; i++) {
+            lignes.add(ligneSignalementPairs.get(i).getKey());
+        }
+        return lignes;
     }
 
     public List<Signalement> findByHour( LocalTime heure){

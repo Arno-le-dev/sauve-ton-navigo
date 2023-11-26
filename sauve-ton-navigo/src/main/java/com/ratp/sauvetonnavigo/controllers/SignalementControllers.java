@@ -1,20 +1,14 @@
 package com.ratp.sauvetonnavigo.controllers;
 
-import com.ratp.sauvetonnavigo.DTO.UsersDto;
 import com.ratp.sauvetonnavigo.models.Signalement;
 import com.ratp.sauvetonnavigo.models.Station;
-import com.ratp.sauvetonnavigo.models.Users;
 import com.ratp.sauvetonnavigo.services.SignalementService;
-import com.ratp.sauvetonnavigo.services.UsersService;
-import com.ratp.sauvetonnavigo.utils.Humeur;
-import com.ratp.sauvetonnavigo.utils.Sorties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 @CrossOrigin
 @RequestMapping("signalement")
@@ -53,8 +47,13 @@ public class SignalementControllers {
     public List<Station> findAllStatStationPlusControlByMonth(@PathVariable int mois) {
         return signalementServices.findAllStatStationPlusControlByMonth(mois);
     }
+
+    @GetMapping("findStatLgineMois/{mois}")
+    public List<Integer> findAllStatLingePlusControlByMonth(@PathVariable int mois) {
+        return signalementServices.findAllStatLingePlusControlByMonth(mois);
+    }
     @GetMapping("getAllDay")
-    public List<Signalement> getAllSignalementsByDay( LocalDate jour) {
+    public List<Signalement> getAllSignalementsByDay( LocalDate jour)  {
         return signalementServices.findByDay(jour);
     }
 
