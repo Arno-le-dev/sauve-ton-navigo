@@ -3,6 +3,8 @@ INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (2, 'Jul
 INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (3, 'Aurélien', 'Bourliatoux', 'aurelien.bourliatoux@epfedu.fr','ab', true);
 INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (4, 'Laura', 'Zablit', 'laura.zablit@epfedu.fr', 'lz', false);
 INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (5, 'Marion', 'Chineaud', 'marion.chineaud@epfedu.fr','mc',false);
+INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (6, 'Pierre-Louis', 'Bertrand', 'plbertrand@takima.fr', 'plb', false);
+INSERT INTO users (id, first_name, last_name, email, mdp, admin) VALUES (7, 'Laurine', 'LeNet', 'llenet@takima.fr','ll',true);
 
 -- Ligne 1
 INSERT INTO station (id, numero_ligne, nom, nbr_controlleurs, nbr_sortie) VALUES
@@ -305,6 +307,27 @@ INSERT INTO station (id, numero_ligne, nom, nbr_controlleurs, nbr_sortie) VALUES
 
 
 
-INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (1, '2023-10-10', '09:10:10', 2,1,'Mechant','SORTIE3','dommage ' );
-INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (2, '2023-10-9', '14:30:00', 2,14,'Gentil','SORTIE1','ca passe oklm' );
-INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (3, '2023-10-8', '15:18:19', 2,33,'Neutre','SORTIE2','la negociation etait compliqué' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (1, '2023-11-10', '09:10:10', 2,60,'Mechant','SORTIE3','dommage ' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (2, '2023-11-9', '14:30:00', 2,30,'Gentil','SORTIE1','ca passe oklm' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (3, '2023-12-8', '15:18:19', 3,33,'Neutre','SORTIE2','la negociation etait compliqué' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (4, '2023-11-12', '09:10:10', 4,30,'Mechant','SORTIE2','pire amande de ma vie' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (5, '2023-11-9', '14:30:00', 2,145,'Mechant','SORTIE1','ca passe pas' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (6, '2023-12-7', '15:18:19', 2,147,'Neutre','SORTIE2','avec un grand sourir ca se tente' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (7, '2023-12-10', '09:10:10', 2,146,'Mechant','SORTIE4','aucune chance' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (8, '2023-12-9', '14:30:00', 1,145,'Gentil','SORTIE1','un amour ce mec' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (9, '2023-11-6', '15:18:19', 5,235,'Mechant','SORTIE2','la negociation etait compliqué' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (10, '2023-12-10', '09:10:10', 2,39,'Mechant','SORTIE3','la ca crain' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (11, '2023-12-9', '14:30:00', 7,188,'Gentil','SORTIE1','Tres compréhensif' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (12, '2023-12-8', '15:18:19', 2,176,'Neutre','SORTIE2','une chance sur deux' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (13, '2023-11-2', '09:10:10', 4,254,'Mechant','SORTIE3','dommage ' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (14, '2023-11-1', '14:30:00', 3,223,'Gentil','SORTIE1','ca passe oklm' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (15, '2023-12-3', '15:18:19', 6,222,'Neutre','SORTIE2','la negociation etait compliqué' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (16, '2023-11-4', '09:10:10', 8,95,'Mechant','SORTIE2','pire amande de ma vie' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (17, '2023-11-15', '14:30:00', 2,174,'Mechant','SORTIE1','ca passe pas' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (18, '2023-12-12', '15:18:19', 9,170,'Neutre','SORTIE2','avec un grand sourir ca se tente' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (19, '2023-12-3', '09:10:10', 2,70,'Mechant','SORTIE4','aucune chance' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (20, '2023-12-12', '14:30:00', 1,69,'Gentil','SORTIE1','un amour ce mec' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (21, '2023-11-2', '15:18:19', 5,60,'Mechant','SORTIE2','la negociation etait compliqué' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (22, '2023-12-14', '09:10:10', 6,198,'Mechant','SORTIE3','la ca crain' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (23, '2023-12-12', '14:30:00', 7,201,'Gentil','SORTIE1','Tres compréhensif' );
+INSERT INTO signalements (id, date, heure, nbr_controlleurs, station_id, humeur, position_controlleurs, commentaire) VALUES (24, '2023-12-3', '15:18:19', 2,201,'Neutre','SORTIE2','RAS' );
