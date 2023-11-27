@@ -7,6 +7,7 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Comparator;
 
 
 @Entity
@@ -37,6 +38,10 @@ public class Station {
         this.nom = stationBuilder.nom;
         this.nbr_controlleurs = stationBuilder.nbr_controlleurs;
         this.nbr_sortie = stationBuilder.nbr_sortie;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public Station(){}

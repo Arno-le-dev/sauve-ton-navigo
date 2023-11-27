@@ -28,7 +28,7 @@ public class Signalement {
     private LocalTime heure;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "station")
+    @JoinColumn(name = "station_id")
     private Station station;
 
     @Column(name = "nbr_controlleurs")
@@ -37,24 +37,25 @@ public class Signalement {
     @Column(name = "commentaire")
     private String commentaire;
 
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "humeur")
     private Humeur humeur;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "position_controlleurs")
     private Sorties position_controlleurs;
 
 
-    public Signalement(SignalementBuilder signalementBuilder) {
-        this.id = signalementBuilder.id;
-        this.date = signalementBuilder.date;
-        this.heure = signalementBuilder.heure;
-        this.station = signalementBuilder.station;
-        this.nbr_controlleurs = signalementBuilder.nbr_controlleurs;
-        this.commentaire = signalementBuilder.commentaire;
-        this.humeur = signalementBuilder.humeur;
-        this.position_controlleurs = signalementBuilder.position_controlleurs;
+    public Signalement(LocalDate date, LocalTime heure, Station station, Integer nbr_controlleurs, String commentaire, Humeur humeur, Sorties position_controlleurs) {
+        this.date = date;
+        this.heure = heure;
+        this.station = station;
+        this.nbr_controlleurs = nbr_controlleurs;
+        this.commentaire = commentaire;
+        this.humeur = humeur;
+        this.position_controlleurs = position_controlleurs;
     }
+
 
     public Signalement(){
     }
