@@ -65,7 +65,7 @@ public class SignalementService {
         List<Signalement> signalements = signalementDao.findAll();
         List<Signalement> signalementsByStations = new ArrayList<>() ;
         for(int i =0; i<signalements.size(); i++){
-            if(signalements.get(i).getStation().getId() == id_station ){
+            if(signalements.get(i).getStation().getId() == id_station.intValue() ){
                 signalementsByStations.add(signalements.get(i));
             }
         }
